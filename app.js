@@ -60,10 +60,10 @@ app.use('/auth', authRoutes);
 app.use('/product', productRoutes);
 app.use('/banner', bannerRoutes);
 
-app.use('/', express.static('dist', {redirect: false}));
+app.use('/', express.static(path.join(__dirname, 'dist'), {redirect: false}));
 
 app.get('*', (req, res) => {
-    res.send('dist', 'index.html');
+    res.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
