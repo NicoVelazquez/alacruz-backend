@@ -43,7 +43,7 @@ app.use(
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist'), { redirect: false }));
 
 // CORS
 app.use((req, res, next) => {
