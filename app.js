@@ -61,7 +61,7 @@ app.use('/product', productRoutes);
 app.use('/banner', bannerRoutes);
 
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.send(path.join(__dirname, 'dist', 'index.html'));
 });
 
