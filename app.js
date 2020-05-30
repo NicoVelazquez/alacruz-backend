@@ -63,7 +63,7 @@ app.use('/banner', bannerRoutes);
 app.use('/', express.static('dist', {redirect: false}));
 
 app.get('*', (req, res) => {
-    res.send(path.join(__dirname, 'dist', 'index.html'));
+    res.send('dist', 'index.html');
 });
 
 
