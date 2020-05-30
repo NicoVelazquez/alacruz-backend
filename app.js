@@ -41,7 +41,9 @@ app.use(
     multer({storage: fileStorage, fileFilter: fileFilter}).single('image')
 );
 
+// Static serve files
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/', express.static(path.join(__dirname, 'dist'), {redirect: false}));
 
 // CORS
 app.use((req, res, next) => {
@@ -55,18 +57,16 @@ app.use((req, res, next) => {
 });
 
 
-// ROUTES
+// Routes
 app.use('/auth', authRoutes);
 app.use('/product', productRoutes);
 app.use('/banner', bannerRoutes);
 
-app.use('/', express.static(path.join(__dirname, 'dist'), {redirect: false}));
-
 app.get('*', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-
+// Error handling
 app.use((error, req, res, next) => {
     console.log(error);
     const status = error.statusCode || 500;
