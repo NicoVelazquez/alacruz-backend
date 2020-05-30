@@ -80,7 +80,7 @@ app.use((error, req, res) => {
 
 mongoose
     .connect(
-        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@alacruz-m34mb.mongodb.net/${process.env.MONGO_DATABASE}`
+        process.env.MONGO_URI
     )
     .then(() => {
         app.listen(process.env.PORT || 3000);
