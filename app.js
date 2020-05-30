@@ -35,6 +35,8 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+
+// Body encoders
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(
@@ -43,7 +45,7 @@ app.use(
 
 // Static serve files
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/', express.static(path.join(__dirname, 'dist'), {redirect: false}));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS
 app.use((req, res, next) => {
@@ -67,7 +69,7 @@ app.get('*', (req, res) => {
 });
 
 // Error handling
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
     console.log(error);
     const status = error.statusCode || 500;
     const message = error.message;
@@ -80,7 +82,7 @@ mongoose
     .connect(
         `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@alacruz-m34mb.mongodb.net/${process.env.MONGO_DATABASE}`
     )
-    .then(result => {
+    .then(() => {
         app.listen(process.env.PORT || 3000);
     })
     .catch(err => console.log(err));
