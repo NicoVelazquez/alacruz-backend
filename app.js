@@ -43,8 +43,6 @@ app.use(
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use(express.static(path.join(__dirname, 'dist'), { redirect: false }));
-
 // CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -62,6 +60,7 @@ app.use('/auth', authRoutes);
 app.use('/product', productRoutes);
 app.use('/banner', bannerRoutes);
 
+app.use('/', express.static(path.join(__dirname, 'dist'), { redirect: false }));
 
 app.get('*', (req, res) => {
     res.send(path.join(__dirname, 'dist', 'index.html'));
