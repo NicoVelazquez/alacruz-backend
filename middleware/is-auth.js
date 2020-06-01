@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
             throw new Error('Not authenticated.');
         }
         const token = authHeader.split(' ')[1];
-        decodedToken = jwt.verify(token, 'putoelqueleesecret');
+        decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
         if (!decodedToken) {
             throw new Error('Not authenticated.');
         }
