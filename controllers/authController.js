@@ -27,7 +27,7 @@ exports.signIn = async (req, res, next) => {
                 userId: loadedUser._id.toString()
             },
             `${process.env.JWT_TOKEN}`,
-            {expiresIn: '1h'}
+            // {expiresIn: '1h'}
         );
         res.status(200).json({token: token, userId: loadedUser._id.toString()});
     } catch (err) {
