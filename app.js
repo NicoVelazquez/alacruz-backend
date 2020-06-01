@@ -6,7 +6,6 @@ const path = require('path');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const multer = require('multer');
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -14,37 +13,11 @@ const bannerRoutes = require('./routes/bannerRoutes');
 
 const app = express();
 
-const fileStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'images');
-    },
-    filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + '@' + file.originalname);
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-    if (
-        file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpg' ||
-        file.mimetype === 'image/jpeg'
-    ) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-};
-
-
 // Body encoders
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({extended: false}));
-app.use(
-    multer({storage: fileStorage, fileFilter: fileFilter}).single('image')
-);
 
 // Static serve files
-app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS
