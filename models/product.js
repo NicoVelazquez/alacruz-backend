@@ -10,6 +10,10 @@ const productSchema = new Schema(
         imageUrl: {
             type: String,
             required: true
+        },
+        featured: {
+            type:  Boolean,
+            required: true
         }
     }
 );
