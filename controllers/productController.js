@@ -2,7 +2,7 @@ const {validationResult} = require('express-validator/check');
 
 const Product = require('../models/product');
 
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
     const name = req.body.name;
     const imageUrl = req.body.imageUrl;
     const featured = req.body.featured;
@@ -17,7 +17,7 @@ exports.create = async (req, res) => {
         });
 };
 
-exports.edit = async (req, res) => {
+exports.edit = async (req, res, next) => {
     const id = req.body._id;
     const editProduct = await Product.findById(id);
     if (!editProduct) {
@@ -36,7 +36,7 @@ exports.edit = async (req, res) => {
         });
 };
 
-exports.delete = async (req, res) => {
+exports.delete = async (req, res, next) => {
     const id = req.body._id;
     const product = await Product.findById(id);
     if (!product) {
@@ -52,7 +52,7 @@ exports.delete = async (req, res) => {
         });
 };
 
-exports.getAll = async (req, res) => {
+exports.getAll = async (req, res, next) => {
     Product.find()
         .then(products => res.status(200).json(products))
         .catch(err => {
@@ -63,8 +63,19 @@ exports.getAll = async (req, res) => {
         })
 };
 
-exports.getFeatured = async (req, res) => {
+exports.getFeatured = async (req, res, next) => {
     Product.find({featured: true})
+        .then(products => res.status(200).json(products))
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        })
+};
+
+exports.getRegular = async (req, res, next) => {
+    Product.find({featured: false})
         .then(products => res.status(200).json(products))
         .catch(err => {
             if (!err.statusCode) {

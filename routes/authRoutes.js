@@ -28,4 +28,6 @@ router.post('/sign-up', [
     ],
     authController.signUp);
 
+router.post('/send-mail', authController.sendMail);
+
 module.exports = router;

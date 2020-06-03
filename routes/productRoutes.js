@@ -17,5 +17,7 @@ router.get('/all', productController.getAll);
 
 router.get('/featured', productController.getFeatured);
 
+router.get('/regular', productController.getRegular);
+
 
 module.exports = router;
