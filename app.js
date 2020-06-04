@@ -7,6 +7,9 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDoc = require('./swagger');
+
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
@@ -18,6 +21,7 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({extended: false}));
 
 // Static serve files
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // CORS
