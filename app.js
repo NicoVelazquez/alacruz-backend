@@ -6,6 +6,7 @@ const path = require('path');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const compression = require('compression');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('./swagger');
@@ -15,6 +16,9 @@ const productRoutes = require('./routes/productRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
 
 const app = express();
+
+//Compress static served files
+app.use(compression());
 
 // Body encoders
 app.use(express.json({limit: '50mb'}));
