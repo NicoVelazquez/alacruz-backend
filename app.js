@@ -26,7 +26,7 @@ app.use(express.urlencoded({extended: false}));
 
 // Static serve files
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist/frontend')));
 
 // CORS
 app.use((req, res, next) => {
@@ -46,7 +46,7 @@ app.use('/product', productRoutes);
 app.use('/banner', bannerRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist/frontend', 'index.html'));
 });
 
 // Error handling
