@@ -38,7 +38,7 @@ exports.signIn = async (req, res, next) => {
             `${process.env.JWT_TOKEN}`,
             // {expiresIn: '1h'}
         );
-        res.status(200).json({token: token, userId: loadedUser._id.toString()});
+        res.status(200).json({token: token, userId: loadedUser._id.toString(), email: email});
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
